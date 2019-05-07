@@ -34,7 +34,7 @@ app.get('/', middleware.required,(req, res) => {
         name: 'AAA'
     })
 })
-app.use('/users', userRoutes)
+app.use('/users', middleware.required,  userRoutes)
 app.use('/auth', authRoutes)
 
 
