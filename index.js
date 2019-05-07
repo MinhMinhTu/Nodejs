@@ -9,9 +9,6 @@ const cookieParser = require('cookie-parser')
 
 const middleware = require('./middlewares/auth.middleware')
 
-//dung tam lowdb
-const db = require('./db')
-
 //set engine pug
 app.set('view engine', 'pug')
 app.set('views', './views')
@@ -25,7 +22,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
 //read cookie
-app.use(cookieParser())
+app.use(cookieParser('asdadsadas12343qwdas'))
 
 
 // routes
