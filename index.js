@@ -4,6 +4,7 @@ const app = express()
 const port = 3000
 const bodyParser = require('body-parser')
 const userRoutes = require('./routes/user.routes')
+const cookieParser = require('cookie-parser')
 
 //dung tam lowdb
 const db = require('./db')
@@ -20,6 +21,8 @@ app.use(express.static('public'))
 app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
+//read cookie
+app.use(cookieParser())
 
 
 // routes
