@@ -12,6 +12,8 @@ const db = require('./db')
 app.set('view engine', 'pug')
 app.set('views', './views')
 
+app.use(express.static('public'))
+
 
 //middleware
 // parse application/x-www-form-urlencoded
@@ -26,8 +28,8 @@ app.get('/', (req, res) => {
         name: 'AAA'
     })
 })
-
 app.use('/users', userRoutes)
+
 
 //run server
 app.listen(port, () => console.log(`server listening on port ${port}`))
