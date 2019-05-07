@@ -1,3 +1,6 @@
+//VARIABLE ENVIROMENT
+require('dotenv').config()
+
 //models
 const express = require('express')
 const app = express()
@@ -8,6 +11,9 @@ const authRoutes = require('./routes/auth.routes')
 const cookieParser = require('cookie-parser')
 
 const middleware = require('./middlewares/auth.middleware')
+
+
+
 
 //set engine pug
 app.set('view engine', 'pug')
@@ -22,11 +28,11 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
 //read cookie
-app.use(cookieParser('asdadsadas12343qwdas'))
+app.use(cookieParser(process.env.SESSION_SECRET))
 
 
 // routes
-app.get('/', middleware.required,(req, res) => {
+app.get('/',(req, res) => {
     res.render('index', {
         name: 'AAA'
     })

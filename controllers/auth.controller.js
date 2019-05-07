@@ -13,7 +13,6 @@ module.exports.postLogin = (req, res) => {
     let password = req.body.password; 
 
     let user = db.get('users').find({email: email}).value();
-    console.log(user)
     if(!user){
         res.render('auth/login', {
             errors :[
@@ -37,8 +36,6 @@ module.exports.postLogin = (req, res) => {
         return;
     }
 
-    res.cookie('userID',user.id,{
-        signed: true
-    })
+    res.cookie('userID',user.id,{ signed: true })
     res.redirect('/users')
 }
