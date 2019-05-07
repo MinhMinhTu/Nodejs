@@ -1,19 +1,18 @@
 //VARIABLE ENVIROMENT
 require('dotenv').config()
 
+
 //models
 const express = require('express')
 const app = express()
-const port = 3000
+const port = 5000
 const bodyParser = require('body-parser')
 const userRoutes = require('./routes/user.routes')
 const authRoutes = require('./routes/auth.routes')
+const productRoutes = require('./routes/product.routes')
 const cookieParser = require('cookie-parser')
 
 const middleware = require('./middlewares/auth.middleware')
-
-
-
 
 //set engine pug
 app.set('view engine', 'pug')
@@ -39,6 +38,8 @@ app.get('/',(req, res) => {
 })
 app.use('/users', middleware.required,  userRoutes)
 app.use('/auth', authRoutes)
+app.use('/products', productRoutes)
+
 
 
 //run server

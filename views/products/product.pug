@@ -1,0 +1,14 @@
+extends ../layout/common
+block content
+        h1 Products 
+        .d-flex.align-items-center  
+        form.d-flex.mr-auto
+            input.form-control(type="text", name="q")
+            button.btn.btn-primary Search
+        each product in products                
+            .card(style="width:250px;height:400px; float:left;margin-right:10px; margin-bottom:10px" )
+                img.card-img-top(src=product.image)
+                h5.card-title= product.name
+                p.card-text= product.description
+
+
