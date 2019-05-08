@@ -16,9 +16,9 @@ block content
                     img.card-img-top(src=product.image)
                     h5.card-title= product.name
                     p.card-text= product.description
-        div(aria-label='Page navigation example')
-            
-            ul.pagination.float-right(style="width:250px")
+                    a.btn.btn-primary(href="/card/add/" + product.id, style="width:100px;margin:0 auto") Add Card
+        div(aria-label='Page navigation example')           
+            ul.pagination.float-right(style="width:325px")
                 li.page-item
                 a.page-link(href='/products?page='+ parseInt(count - 1), aria-label='Previous')
                     span(aria-hidden='true') &laquo;

@@ -10,17 +10,25 @@ html
                 img(src="/images/logo.jpg" width="40" height="30" class="d-inline-block align-top" ) 
                 | Genex
             button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarSupportedContent', aria-controls='navbarSupportedContent', aria-expanded='false', aria-label='Toggle navigation')
-                span.navbar-toggler-icon
+                span.navbar-toggler-icon            
             #navbarSupportedContent.collapse.navbar-collapse
                 ul.navbar-nav.mr-auto
                     li.nav-item.active
                         a.nav-link(href='/')
                             | Home 
-                        span.sr-only (current)
+                        span.sr-only
                     li.nav-item.active
                         a.nav-link(href='/users')
                             | Users 
-                        span.sr-only (current)
+                        span.sr-only
+                    li.nav-item.active
+                        a.nav-link(href='/products')
+                            | Products 
+                        span.sr-only
+                    li.nav-item.active
+                        a.nav-link(href='/products')
+                            | Card 
+                        span.sr-only
         if user
             p= user.name
     .container.pt-5                

@@ -10,9 +10,14 @@ const bodyParser = require('body-parser')
 const userRoutes = require('./routes/user.routes')
 const authRoutes = require('./routes/auth.routes')
 const productRoutes = require('./routes/product.routes')
+const cardRoutes = require('./routes/card.routes')
+
 const cookieParser = require('cookie-parser')
 
 const middleware = require('./middlewares/auth.middleware')
+const sessionMiddleware = require('./middlewares/session.middleware')
+
+
 
 //set engine pug
 app.set('view engine', 'pug')
@@ -28,6 +33,8 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 //read cookie
 app.use(cookieParser(process.env.SESSION_SECRET))
+//anh huong đến tất ca ác đường
+app.use(sessionMiddleware)
 
 
 // routes
@@ -39,7 +46,8 @@ app.get('/',(req, res) => {
 app.use('/users', middleware.required,  userRoutes)
 app.use('/auth', authRoutes)
 app.use('/products', productRoutes)
-app.use('/404', productRoutes)
+app.use('/card', cardRoutes)
+
 
 
 

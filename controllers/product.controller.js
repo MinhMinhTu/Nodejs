@@ -4,7 +4,6 @@ const db = require('../db')
 module.exports.product = (req, res) => {
     let page = parseInt(req.query.page) || 1 //n
     const perPage = 4; //x
-    console.log(page)
     const start = (page - 1) * perPage
     const end = page * perPage
 
@@ -42,14 +41,14 @@ module.exports.product = (req, res) => {
         counts: {
             value: page,
             increase : gtr 
-        }
+        },
+        sessions : db.get('sessions').value()
     })
 }
 
 module.exports.product = (req, res) => {
     let page = parseInt(req.query.page) || 1 //n
     const perPage = 4; //x
-    console.log(page)
     const start = (page - 1) * perPage
     const end = page * perPage
 
