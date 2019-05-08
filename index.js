@@ -39,6 +39,7 @@ app.get('/',(req, res) => {
 app.use('/users', middleware.required,  userRoutes)
 app.use('/auth', authRoutes)
 app.use('/products', productRoutes)
+app.use('/404', productRoutes)
 
 
 

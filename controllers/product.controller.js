@@ -2,13 +2,92 @@ const db = require('../db')
 
 
 module.exports.product = (req, res) => {
-    const page = parseInt(req.query.page) || 1 //n
-    const perPage = 4 ; //x
-    
+    let page = parseInt(req.query.page) || 1 //n
+    const perPage = 4; //x
+    console.log(page)
     const start = (page - 1) * perPage
     const end = page * perPage
-    res.render('products/product',{
-        products : db.get('products').value().slice(start , end)
+
+    let gtr = 0
+    if (page > 0 && page < 4) {
+        gtr = gtr      
+    }
+    if (page > 3 && page < 7) {
+        gtr =  3        
+    }
+    if (page > 6 && page < 10) {
+        gtr = 6
+    }
+    if (page > 9 && page < 13) {
+        gtr = 9  
+    }
+    if (page > 12 && page < 16) {
+        gtr = 12  
+    }
+    if (page > 15 && page < 19) {
+        gtr = 15  
+    }
+    if (page > 18 && page < 22) {
+        gtr = 18  
+    }
+    if (page > 21 && page < 25) {
+        gtr = 21  
+    }
+    if(page > 25){
+        res.render('products/404')
+        return;
+    }
+    res.render('products/product', {
+        products: db.get('products').value().slice(start, end),
+        counts: {
+            value: page,
+            increase : gtr 
+        }
+    })
+}
+
+module.exports.product = (req, res) => {
+    let page = parseInt(req.query.page) || 1 //n
+    const perPage = 4; //x
+    console.log(page)
+    const start = (page - 1) * perPage
+    const end = page * perPage
+
+    let gtr = 0
+    if (page > 0 && page < 4) {
+        gtr = gtr      
+    }
+    if (page > 3 && page < 7) {
+        gtr =  3        
+    }
+    if (page > 6 && page < 10) {
+        gtr = 6
+    }
+    if (page > 9 && page < 13) {
+        gtr = 9  
+    }
+    if (page > 12 && page < 16) {
+        gtr = 12  
+    }
+    if (page > 15 && page < 19) {
+        gtr = 15  
+    }
+    if (page > 18 && page < 22) {
+        gtr = 18  
+    }
+    if (page > 21 && page < 25) {
+        gtr = 21  
+    }
+    if(page > 25){
+        res.render('products/404')
+        return;
+    }
+    res.render('products/product', {
+        products: db.get('products').value().slice(start, end),
+        counts: {
+            value: page,
+            increase : gtr 
+        }
     })
 }
 
