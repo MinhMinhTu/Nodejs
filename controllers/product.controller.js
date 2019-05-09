@@ -37,15 +37,6 @@ module.exports.product = async (req, res) => {
         res.render('products/404')
         return;
     }
-    // res.render('products/product', {
-    //     products: db.get('products').value().slice(start, end),
-    //     counts: {
-    //         value: page,
-    //         increase : gtr 
-    //     },
-    //     sessions : db.get('sessions').value()
-    // })
-
     const products = await Product.find();
     res.render('products/product', {
         products: products.slice(start, end),
