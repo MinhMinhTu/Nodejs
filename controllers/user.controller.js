@@ -40,9 +40,6 @@ module.exports.postCreate = async (req, res) => {
         phone: req.body.phone,
         avatar : req.file.path.replace(/\\/g, "/").split("/").slice(1).join("/")
     }
-
-    // req.body.id = shortid.generate();
-    // req.body.avatar = req.file.path.replace(/\\/g, "/").split("/").slice(1).join("/");
     User.create(data);
     res.redirect('/users')
 }
