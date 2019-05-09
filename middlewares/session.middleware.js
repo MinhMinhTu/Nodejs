@@ -5,7 +5,7 @@ module.exports = (req, res, next) => {
     if (!req.signedCookies.sessionId) {
         let sessionId = shortid.generate()
         res.cookie('sessionId', sessionId, {
-            signed: true
+            signed: true    
         })
 
         db.get('sessions').push({

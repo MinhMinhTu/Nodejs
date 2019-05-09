@@ -1,10 +1,13 @@
-const db = require('../db')
+
 const shortid = require('shortid')
+const User = require('../models/user.model')
 
 
-module.exports.index = (req, res) => {
+module.exports.index = async (req, res) => {
+
+    const users = await User.find();
     res.render('users/index', {
-        users: db.get('users').value()
+        users: users
     })
 };
 
@@ -18,21 +21,28 @@ module.exports.search = (req, res) => {
     })
 }
 
-module.exports.create =  (req, res) => {
+module.exports.create = (req, res) => {
     res.render('users/create')
 }
 
-module.exports.get = (req, res) => {
+module.exports.get = async (req, res) => {
     const userId = req.params.userId;
-    const user = db.get('users').find({id : userId}).value()
+    const users = await User.find({_id : userId});
     res.render('users/view', {
-        users: user
+        users: users[0]
     })
 }
 
-module.exports.postCreate =(req, res) => {
-    req.body.id = shortid.generate();
-    req.body.avatar = req.file.path.replace(/\\/g, "/").split("/").slice(1).join("/");
-    db.get('users').push(req.body).write()
+module.exports.postCreate = async (req, res) => {
+
+    const data = {
+        name: req.body.name,
+        phone: req.body.phone,
+        avatar : req.file.path.replace(/\\/g, "/").split("/").slice(1).join("/")
+    }
+
+    // req.body.id = shortid.generate();
+    // req.body.avatar = req.file.path.replace(/\\/g, "/").split("/").slice(1).join("/");
+    User.create(data);
     res.redirect('/users')
 }

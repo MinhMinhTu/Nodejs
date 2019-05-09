@@ -1,7 +1,9 @@
 extends ../layout/common
 
 block content
+    -var path = '../'
     h1 View User
     p
         b Name &nbsp;
         span= users.name
+        img(src= path + users.avatar)

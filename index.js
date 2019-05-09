@@ -4,20 +4,27 @@ require('dotenv').config()
 
 //models
 const express = require('express')
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser')
+const cookieParser = require('cookie-parser')
+
 const app = express()
 const port = 5000
-const bodyParser = require('body-parser')
+
 const userRoutes = require('./routes/user.routes')
 const authRoutes = require('./routes/auth.routes')
 const productRoutes = require('./routes/product.routes')
 const cardRoutes = require('./routes/card.routes')
+const transferRoutes = require('./routes/transfer.routes')
+//api
+const apiProductRoutes = require('./api/routes/product.routes')
 
-const cookieParser = require('cookie-parser')
 
 const middleware = require('./middlewares/auth.middleware')
 const sessionMiddleware = require('./middlewares/session.middleware')
 
-
+//connect mongoose
+mongoose.connect(process.env.MONGO_URL, {useNewUrlParser: true});
 
 //set engine pug
 app.set('view engine', 'pug')
@@ -43,10 +50,14 @@ app.get('/',(req, res) => {
         name: 'AAA'
     })
 })
-app.use('/users', middleware.required,  userRoutes)
+app.use('/users', middleware.required, userRoutes)
 app.use('/auth', authRoutes)
 app.use('/products', productRoutes)
 app.use('/card', cardRoutes)
+app.use('/transfer', middleware.required, transferRoutes)
+//api 
+app.use('/api/products', apiProductRoutes)
+
 
 
 

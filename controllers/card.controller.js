@@ -14,12 +14,11 @@ module.exports.addToCard =(req, res, next) =>{
                     .get('card.' + productId, 0)
                     .value()
 
-    console.log(count)
+
     db.get('sessions')
         .find({id : sessionId})
         .set('card.' + productId, count + 1)
         .write()
-        console.log(count)
     res.redirect('/products')
   
 }
