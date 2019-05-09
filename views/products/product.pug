@@ -1,0 +1,40 @@
+extends ../layout/common
+block content
+        - var count = counts.value;
+        - var number = counts.increase;
+        - var one = 1 + number;
+        - var two = 2 + number;
+        - var three = 3 + number;
+        h1 Products -- Page #{count}
+        .d-flex.align-items-center  
+        form.d-flex.mr-auto
+            input.form-control(type="text", name="q")
+            button.btn.btn-primary Search
+        .d-flex.align-items-center
+            each product in products                          
+                .card(style="width:250px;height:400px;margin-right:10px; margin-bottom:10px;" )
+                    img.card-img-top(src=product.image)
+                    h5.card-title= product.name
+                    p.card-text= product.description
+                    a.btn.btn-primary(href="/card/add/" + product.id, style="width:100px;margin:0 auto") Add Card
+        div(aria-label='Page navigation example')           
+            ul.pagination.float-right(style="width:325px")
+                li.page-item
+                a.page-link(href='/products?page='+ parseInt(count - 1), aria-label='Previous')
+                    span(aria-hidden='true') &laquo;
+                li.page-item
+                a.page-link(href='/products?page=' + 1)= one 
+                li.page-item
+                a.page-link(href='/products?page=' + 2)= two
+                li.page-item
+                a.page-link(href='/products?page=' + 3)= three
+                li.page-item
+                a.page-link ...
+                li.page-item
+                a.page-link(href='/products?page=' + 25) 25
+                li.page-item
+                a.page-link(href='/products?page='+ parseInt(count + 1) , aria-label='Next')
+                    span(aria-hidden='true') &raquo;
+
+
+

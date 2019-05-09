@@ -1,23 +1,36 @@
+//VARIABLE ENVIROMENT
+require('dotenv').config()
+
+
 //models
 const express = require('express')
-const app = express()
-const port = 3000
+const mongoose = require('mongoose');
 const bodyParser = require('body-parser')
+const cookieParser = require('cookie-parser')
 
-//dung tam lowdb
-const low = require('lowdb')
-const FileSync = require('lowdb/adapters/FileSync')
-const adapter = new FileSync('db.json')
-const db = low(adapter)
-const shortid = require('shortid')
+const app = express()
+const port = 5000
 
-// Set some defaults (required if your JSON file is empty)
-db.defaults({ users: [] })
-    .write()
+const userRoutes = require('./routes/user.routes')
+const authRoutes = require('./routes/auth.routes')
+const productRoutes = require('./routes/product.routes')
+const cardRoutes = require('./routes/card.routes')
+const transferRoutes = require('./routes/transfer.routes')
+//api
+const apiProductRoutes = require('./api/routes/product.routes')
+
+
+const middleware = require('./middlewares/auth.middleware')
+const sessionMiddleware = require('./middlewares/session.middleware')
+
+//connect mongoose
+mongoose.connect(process.env.MONGO_URL, {useNewUrlParser: true});
 
 //set engine pug
 app.set('view engine', 'pug')
 app.set('views', './views')
+
+app.use(express.static('public'))
 
 
 //middleware
@@ -25,51 +38,29 @@ app.set('views', './views')
 app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
+//read cookie
+app.use(cookieParser(process.env.SESSION_SECRET))
+//anh huong đến tất ca ác đường
+app.use(sessionMiddleware)
 
 
 // routes
-app.get('/', (req, res) => {
+app.get('/',(req, res) => {
     res.render('index', {
         name: 'AAA'
     })
 })
+app.use('/users', middleware.required, userRoutes)
+app.use('/auth', authRoutes)
+app.use('/products', productRoutes)
+app.use('/card', cardRoutes)
+app.use('/transfer', middleware.required, transferRoutes)
+//api 
+app.use('/api/products', apiProductRoutes)
 
-app.get('/users', (req, res) => {
-    res.render('users/index', {
-        users: db.get('users').value()
-    })
-})
 
 
 
-
-app.get('/users/search', (req, res) => {
-    let users = []
-    let q = req.query.q.toLowerCase();
-    let matchUsers = db.get('users').find({ name: q }).value();
-    users.push(matchUsers)
-    res.render('users/index', {
-        users: users
-    })
-})
-
-app.get('/users/create', (req, res) => {
-    res.render('users/create')
-})
-app.post('/users/create', (req, res) => {
-    req.body.id = shortid.generate();
-    db.get('users').push(req.body).write()
-    res.redirect('/users')
-})
-//user id
-app.get('/users/:userId', (req, res) => {
-    const userId = req.params.userId;
-    console.log(userId)
-    const user = db.get('users').find({id : userId}).value()
-    res.render('users/view', {
-        users: user
-    })
-})
 
 //run server
 app.listen(port, () => console.log(`server listening on port ${port}`))

@@ -1,11 +1,26 @@
-h1 Users
-a(href="/users/create") Create Users
+extends ../layout/common
 
-form(action="/users/search", method="GET")
-    input(type="text", name="q")
-    button Search
-ul  
-    each user in users
-        li
-            span= user.name
-            a(href="/users/"+ user.id) View
+block content
+    h1
+        span Users 
+        a.btn.btn-primary(href="/users/create") New Users  
+    .d-flex.align-items-center  
+        form(action="/users/search", method="GET").d-flex.ml-auto
+            input.form-control(type="text", name="q")
+            button.btn.btn-primary Search
+    table.table 
+        tr  
+            th Avatar
+            th Name
+            th Phone
+            th
+        each user in users
+            tr
+                td
+                    img(src=user.avatar,style="width:100px")
+                td= user.name
+                td= user.phone
+                td
+                    a.btn.btn-light(href="/users/"+ user.id) View
+        
+        

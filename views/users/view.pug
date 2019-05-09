@@ -1,5 +1,9 @@
-h1 View User
+extends ../layout/common
 
-p
-    b Name &nbsp;
-    span= users.name
+block content
+    -var path = '../'
+    h1 View User
+    p
+        b Name &nbsp;
+        span= users.name
+        img(src= path + users.avatar)

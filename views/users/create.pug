@@ -1,7 +1,20 @@
-h1 create user
+extends ../layout/common
+block content
+        h1 Create user
+        if errors
+            each err in errors
+                .alert.alert-danger= err
+        form(action="/users/create", method="POST", enctype="multipart/form-data")
+            .form-group
+                label(for="name") Name:
+                input#name.form-control(type="text",name="name",value=values ? values.name : '')
 
-form(action="/users/create", method="POST")
-    label Name:
-    input(type="text",name="name")
+            .form-group
+                label(for="phone") Phone:
+                input#phone.form-control(type="text",name="phone",value=values ? values.phone : '')
 
-    button Save
+            .form-group
+                label(for="avatar") Avatar:
+                input#avatar.form-control-file(type="file",name="avatar")
+
+            button.btn.btn-primary Save
