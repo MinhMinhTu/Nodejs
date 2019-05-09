@@ -4,7 +4,6 @@ module.exports.product = async (req, res) => {
     const products = await Product.find()
     res.json(products)
 }
-
 module.exports.getOneProduct= async (req, res, next)=>{
     const id = req.params.apiID;
     const products = await Product.find({_id : id}) // database return back one array
